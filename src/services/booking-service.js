@@ -5,7 +5,9 @@ const { ServerConfig } = require("../config");
 const AppError = require("../utils/errors/app-error");
 const { StatusCodes } = require("http-status-codes");
 const { Enums } = require("../utils/common");
+
 const { BOOKED, CANCELLED, INITIATED, PENDING } = Enums.BOOKING_STATUS;
+
 
 const bookingRepository = new BookingRepository();
 async function createBooking(data) {
@@ -46,6 +48,7 @@ async function makePayment(data) {
       data.bookingId,
       transaction
     );
+    
     if (bookingDeatils.status == CANCELLED) {
       await bookingRepository.update(
         Date.bookingId,
